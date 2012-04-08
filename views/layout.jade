@@ -10,4 +10,6 @@ html(lang="en")
 			.header
 				a.brand(href='/') Dialog.io
 			.content.well!= body
+			.footer
+				!=partial('_input')
 		script(data-main='/js/main.js', src='/js/require-jquery.js')

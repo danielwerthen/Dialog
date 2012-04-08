@@ -20,11 +20,19 @@ html, body {
 .content {
 	position: absolute;
 	top: 40px;
-	bottom: 40px;
+	bottom: 85px;
 	right: 0px;
 	left: 0px;
 	margin-bottom: 0px;
 	overflow-y: auto;
+}
+
+.footer {
+	position: absolute;
+	left: 20px;
+	bottom: 10px;
+	max-width: 500px;
+	width: 90%;
 }
 
 .brand {
@@ -72,11 +80,13 @@ html, body, div, p, a, h1, h2, h3, h4, textarea {
 	font-family: 'Quicksand', sans-serif;
 }
 
-.input, .convo {
+.convo {
 	position: relative;
 }
 
 .input {
+	display: inline-block;
+	width: 75%;
 	max-width: 400px;
 	position: relative;
 }
@@ -84,14 +94,42 @@ html, body, div, p, a, h1, h2, h3, h4, textarea {
 .retort {
 	display: block;
 	max-width: 400px;
+	margin-bottom: 5px;
 }
 
-.me {
+.retort.me {
 	margin-right: 40px;
 	margin-left: 0px;
 }
 
-.you {
+.retort.you {
 	margin-right: 0px;
 	margin-left: 40px;
 }
+
+.retort.me:before, .retort.you:before {
+	margin-right: 4px;
+	font-weight: 600;
+}
+
+.retort.me:before {
+	content: '{Me}';
+}
+
+.retort.you:before {
+	content: '{You}';
+}
+
+.state {
+	line-height: 28px;
+	width: 19%;
+	position: relative;
+	float: right;
+}
+
+.state .inner {
+	line-height: 65px;
+	color: #F5F5F5;
+
+}
+
