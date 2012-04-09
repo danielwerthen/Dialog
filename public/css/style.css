@@ -47,7 +47,7 @@ html, body {
 	color: inherit;
 }
 
-textarea.autofit {
+textarea.retorter {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
@@ -58,18 +58,6 @@ textarea.autofit {
 	height: 100%;
 	min-height: 5em;
 	resize: none;
-}
-
-div.autofit-copy {
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-ms-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	visibility: hidden;
-	padding: 6px;
-	padding-bottom: 1.55em;
-	min-height: 5em;
-	width: 100%;
 }
 
 body {
@@ -130,6 +118,5 @@ html, body, div, p, a, h1, h2, h3, h4, textarea {
 .state .inner {
 	line-height: 65px;
 	color: #F5F5F5;
-
 }
 

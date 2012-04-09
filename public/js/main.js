@@ -5,6 +5,24 @@ require(
 	, function (require, $) {
 		$(function () {
 
+			var state = $('.state .inner')
+				, me = state.hasClass('me')
+				, convo = $('.convo')
+				, shift = false
+				, content = $('.content')
+
+			$('.retorter')
+				.keydown(function (e) {
+					if (e.keyCode === 13) {
+						enter($(this), !e.shiftKey);
+						return false;
+					}
+					if (e.keyCode === 9) {
+						flip();
+						return false;
+					}
+				});
+
 			//Attach autofit
 			$('.autofit')
 				.change(autofit)
@@ -14,26 +32,31 @@ require(
 					autofit.apply(elem, null);
 				});
 
-			$("textarea.accept-tab").keydown(function(e) {
-				if(e.keyCode === 9) { // tab was pressed
-					// get caret position/selection
-					var start = this.selectionStart;
-					end = this.selectionEnd;
+			function enter(textarea, _flip) {
+				var text = textarea.val();
+				if (text === '')
+					return;
+				convo.append($('<div class="' + (me ? 'me' : 'you') + ' retort">' + text + '</div>'));
+				textarea.val('');
+				content.scrollTop(content.prop('scrollHeight'));
+				if (_flip)
+					flip();
+			}
 
-					var $this = $(this);
-
-					// set textarea value to: text before caret + tab + text after caret
-					$this.val($this.val().substring(0, start)
-						+ "\t"
-						+ $this.val().substring(end));
-
-					// put caret at right position again
-					this.selectionStart = this.selectionEnd = start + 1;
-
-					// prevent the focus lose
-					return false;
+			function flip() {
+				me = !me;
+				if (me) {
+					state.removeClass('you');
+					state.addClass('me');
+					state.html('{Me}');
 				}
-			});
+				else {
+					state.removeClass('me');
+					state.addClass('you');
+					state.html('{You}');
+				}
+
+			}
 
 		});
 
@@ -43,5 +66,6 @@ require(
 			if (copy.length > 0)
 				copy.html(text);
 		}
+
 	}
 );
