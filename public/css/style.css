@@ -64,7 +64,7 @@ body {
 	margin: 0;
 }
 
-html, body, div, p, a, h1, h2, h3, h4, textarea {
+html, body, div, p, a, h1, h2, h3, h4, textarea, input {
 	font-family: 'Quicksand', sans-serif;
 }
 
@@ -95,18 +95,6 @@ html, body, div, p, a, h1, h2, h3, h4, textarea {
 	margin-left: 40px;
 }
 
-.retort.me:before, .retort.you:before {
-	margin-right: 4px;
-	font-weight: 600;
-}
-
-.retort.me:before {
-	content: '{Me}';
-}
-
-.retort.you:before {
-	content: '{You}';
-}
 
 .state {
 	line-height: 28px;
@@ -120,3 +108,33 @@ html, body, div, p, a, h1, h2, h3, h4, textarea {
 	color: #F5F5F5;
 }
 
+.retort span.tag:before {
+	content: '{'
+}
+
+.retort span.tag:after {
+	content: '}'
+}
+
+.retort span.tag {
+	margin-right: 8px;
+	font-weight: 600;
+}
+
+input.character-io {
+	height: auto;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	font-size: 30px;
+	line-height: 36px;
+	font-weight: bold;
+	border:none;
+	position: relative;
+	margin-right: 0px;
+	margin-left: 0px;
+	width: 2em;
+	background-color: none;
+	background: none;
+	color: #333;
+}

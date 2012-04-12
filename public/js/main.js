@@ -1,6 +1,7 @@
 require(
 	[ 'require'
 	, 'jquery'
+	, '/js/autoGrowInput.js'
 	, '/js/bootstrap.min.js' ]
 	, function (require, $) {
 		$(function () {
@@ -10,6 +11,9 @@ require(
 				, convo = $('.convo')
 				, shift = false
 				, content = $('.content')
+				, meInput = $('input.character-io.me')
+				, youInput = $('input.character-io.you')
+				, charIO = $('input.character-io')
 
 			$('.retorter')
 				.keydown(function (e) {
@@ -33,14 +37,23 @@ require(
 				});
 
 			function enter(textarea, _flip) {
-				var text = textarea.val();
+				var _me = meInput.val(),
+						_you = youInput.val(),
+						text = textarea.val();
 				if (text === '')
 					return;
-				convo.append($('<div class="' + (me ? 'me' : 'you') + ' retort">' + text + '</div>'));
+				convo.append($('<div class="' + (me ? 'me' : 'you') + ' retort"><span class="tag">' + (me ? _me : _you) + '</span>' + text + '</div>'));
 				textarea.val('');
 				content.scrollTop(content.prop('scrollHeight'));
 				if (_flip)
 					flip();
+			}
+
+			function syncChars() {
+				var me = meInput.val(),
+						you = youInput.val();
+				$('.retort.me span.tag').html(me);
+				$('.retort.you span.tag').html(you);
 			}
 
 			function flip() {
@@ -57,6 +70,11 @@ require(
 				}
 
 			}
+
+			charIO.autoGrowInput();
+			charIO.keyup(function () {
+				syncChars();
+			});
 
 		});
 
