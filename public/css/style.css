@@ -108,11 +108,12 @@ html, body, div, p, a, h1, h2, h3, h4, textarea, input {
 	color: #F5F5F5;
 }
 
-.retort span.tag:before {
+
+.retort span.tag:before, .state .inner:before {
 	content: '{'
 }
 
-.retort span.tag:after {
+.retort span.tag:after, .state .inner:after {
 	content: '}'
 }
 

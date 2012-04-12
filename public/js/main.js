@@ -54,6 +54,18 @@ require(
 						you = youInput.val();
 				$('.retort.me span.tag').html(me);
 				$('.retort.you span.tag').html(you);
+				setState();
+			}
+
+			function setState() {
+				var _me = meInput.val(),
+						_you = youInput.val();
+				if (me) {
+					state.html(_me);
+				}
+				else {
+					state.html(_you);
+				}
 			}
 
 			function flip() {
@@ -61,13 +73,12 @@ require(
 				if (me) {
 					state.removeClass('you');
 					state.addClass('me');
-					state.html('{Me}');
 				}
 				else {
 					state.removeClass('me');
 					state.addClass('you');
-					state.html('{You}');
 				}
+				setState();
 
 			}
 
