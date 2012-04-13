@@ -1,7 +1,19 @@
-h1 
-	input.character-io.me(tabindex=1, type='text', value='Me')
-	= ' + '
-	input.character-io.you(tabindex=2, type='text', value='You')
-	= '?'
-hr
-.convo 
+extends layout
+block overlay
+	.overlay#sharing-is-caring
+		!= partial('_share')
+block header
+	.menu
+		a.overlay-action.action-link(href='#sharing-is-caring', data-open='#sharing-is-caring') Share
+block footer
+	.footer
+		!= partial('_input')
+block body
+	.content.well
+		h1 
+			input.character-io.me(tabindex=1, type='text', value='Me')
+			= ' + '
+			input.character-io.you(tabindex=2, type='text', value='You')
+			= '?'
+		hr
+		.convo 

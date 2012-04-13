@@ -8,8 +8,11 @@ html(lang="en")
 	body
 		.container
 			.header
-				a.brand(href='/') Dialog.io
-			.content.well!= body
-			.footer
-				!=partial('_input')
+				a.action-link(href='/') Dialog.io
+				block header
+			block body
+				.content.well
+			block footer
+				.footer
+		block overlay
 		script(data-main='/js/main.js', src='/js/require-jquery.js')

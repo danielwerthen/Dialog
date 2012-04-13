@@ -1,0 +1,10 @@
+.sharing-is-caring
+	.header
+		h1 Share
+		.menu
+			a.action-link.overlay-action(href='#', data-close='#sharing-is-caring') X
+	hr
+	form(method='post', action='/dialog')
+		input(type='text', placeholder='Title of Dialog', name='title')
+		input(type='text', placeholder='Pseudonym', name='author')
+		a.action-link#submit-dialog(href='#') Submit
