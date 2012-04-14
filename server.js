@@ -1,7 +1,8 @@
 var express = require('express')
 	, app = express.createServer()
 	, port = process.env.PORT || 3001
-	, db = require('./db')
+	, db = require('./db').connect()
+	, dialogs = require('./server/dialogs')
 
 app.configure(function () {
 	app.use(express.static(__dirname + '/public'));
@@ -22,8 +23,10 @@ app.get('/new', function (req, res) {
 });
 
 app.post('/dialog', function (req, res) {
-	console.dir(req.body);
-	return res.redirect('home');
+	dialogs.put(req.body, function (err, result) {
+		if (err || !result) return res.render('error', { error: err });
+		return res.redirect('home');
+	});
 });
 
 db.on('open', function (err) {

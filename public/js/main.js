@@ -65,13 +65,13 @@ require(
 					data = form.find('#data');
 					data.empty();
 				}
-				data.append(makeHidden('character-0', meInput.val()));
-				data.append(makeHidden('character-1', youInput.val()));
+				data.append(makeHidden('character0', meInput.val()));
+				data.append(makeHidden('character1', youInput.val()));
 				$('.convo .retort').each(function (i, element) {
 					var retort = $(element)
 						, me = retort.hasClass('me');
-					data.append(makeHidden('retorter[' + i + ']', (me ? '0' : '1')));
-					data.append(makeHidden('retort[' + i + ']', retort.find('p').html()));
+					data.append(makeHidden('retorters[' + i + ']', (me ? '0' : '1')));
+					data.append(makeHidden('retorts[' + i + ']', retort.find('p').html()));
 				});
 				form.submit();
 			});
