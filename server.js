@@ -3,6 +3,7 @@ var express = require('express')
 	, port = process.env.PORT || 3001
 	, db = require('./db').connect()
 	, dialogs = require('./server/dialogs')
+	, jadeHelp = require('./lib/jadeHelp')
 
 app.configure(function () {
 	app.use(express.static(__dirname + '/public'));
@@ -12,10 +13,17 @@ app.configure(function () {
 	app.set('view engine', 'jade');
 	app.set('views', __dirname + '/views');
 	app.set('view options', { layout: false });
+	jadeHelp.set('views', __dirname + '/views');
 });
 
 app.get('/', function (req, res) {
-	return res.render('home');
+	dialogs.Dialog.find()
+	.sort('date', -1)
+	.limit(10)
+	.run(function (err, list) {
+		res.render('home', { dialogs: list });
+	});
+
 });
 
 app.get('/new', function (req, res) {

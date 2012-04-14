@@ -22,6 +22,8 @@ var DialogSchema = new Schema({
 
 var Dialog = db.model('Dialog', DialogSchema);
 
+module.exports.Dialog = Dialog;
+
 module.exports.put = put;
 function put(dialog, cb) {
 	if (!dialog._id) create(dialog, cb);

@@ -111,13 +111,12 @@ html, body, div, p, a, h1, h2, h3, h4, textarea, input {
 }
 
 .retort.me {
-	margin-right: 40px;
 	margin-left: 0px;
 }
 
 .retort.you {
 	margin-right: 0px;
-	margin-left: 40px;
+	margin-left: 20px;
 }
 
 
@@ -144,6 +143,19 @@ html, body, div, p, a, h1, h2, h3, h4, textarea, input {
 .retort span.tag {
 	margin-right: 8px;
 	font-weight: 600;
+}
+
+.dialog {
+	max-width: 400px;
+}
+
+h3.char {
+	position: relative;
+	display: inline;
+}
+
+h3.author:before {
+	content: 'By: ';
 }
 
 input.character-io {
