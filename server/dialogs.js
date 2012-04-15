@@ -50,3 +50,15 @@ function create(dialog, cb) {
 function update(dialog, cb) {
 	cb("Not implemented", false);
 }
+
+module.exports.upVote = upVote;
+function upVote(dialogId, charId, cb) {
+	Dialog.findOne({ _id: dialogId }, function (err, d) {
+		if (err) return cb(err);
+		d.characters[charId].upVotes++;
+		d.save(function (err) {
+			if (err) return cb(err);
+			cb(null);
+		});
+	});
+}

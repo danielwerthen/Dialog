@@ -21,12 +21,24 @@ con.on('open', function (err) {
 				topic: function () {
 					dialogs.put(testDialog1, this.callback);
 				},
-				'no error': function (err, dialog) {
-					assert.isNull(err);
+				'test upvote': {
+					topic: function (dialog) {
+									 dialogs.upVote(dialog._id, 0, this.callback);
+								 },
+					'check vote stat': function (err) {
+						assert.isTrue(!err);
+					},
+				'check upvote': {
+					topic: function (dialog) {
+									 dialogs.Dialog.findOne({ _id: dialog._id }, this.callback);
+								 },
+					'make sure upvote = 1': function (err, dialog) {
+						assert.isTrue(dialog.characters[0].upVotes == 1);
+					}
 				}
+				},
 			}
 		})
-		.export(module)
 		.run(function (result) {
 			con.close();
 		});

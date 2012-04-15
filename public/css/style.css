@@ -22,6 +22,14 @@ hr {
 	margin: 0px 0px 10px 0px;
 }
 
+a {
+	color: #333;
+}
+
+a:hover {
+	color: #333;
+}
+
 .header {
 	color: #999;
 }
@@ -145,14 +153,32 @@ span.tag {
 	font-weight: 600;
 }
 
-.char-one span.tag {
+.voter.me span.tag {
 	font-size: 20px;
 	float: right;
+	text-decoration: inherit;
 }
 
-.char-two span.tag {
+.voter.you span.tag {
 	font-size: 16px;
 	float: right;
+	text-decoration: inherit;
+}
+
+.voter:hover span.tag:before {
+	content: '{+1 '
+}
+
+.voter.clicked span.tag:before {
+	content: '{+1 '
+}
+
+.voter {
+	cursor: pointer;
+}
+
+.voter:hover {
+	text-decoration: underline;
 }
 
 .dialog {
@@ -247,3 +273,4 @@ input.character-io {
 	float: right;
 	margin-top: 5px;
 }
+

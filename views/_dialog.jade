@@ -1,9 +1,9 @@
 - var full = full || false
 .dialog
 	.votes
-		.char-one
+		.voter.me(data-id=dialog._id, data-votes=dialog.characters[0].upVotes, class=(dialog.characters[0].hasVoted == true ? 'clicked' : ''))
 			span.tag= dialog.characters[0].name
-		.char-two
+		.voter.you(data-id=dialog._id, data-votes=dialog.characters[1].upVotes, class=(dialog.characters[1].hasVoted == true ? 'clicked' : ''))
 			span.tag= dialog.characters[1].name
 	a(href='/byId/' + dialog._id)
 		h2.title= dialog.title

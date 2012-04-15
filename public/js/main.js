@@ -55,6 +55,51 @@ require(
 				return $('<input type="hidden" value="' + val + '" + name="' + name + '" />');
 			}
 
+			function setVoteEffect() {
+				$('.votes').each(function (i, element) {
+					var $self = $(element)
+						, $me = $self.find('.voter.me')
+						, $you = $self.find('.voter.you')
+						, a = parseFloat($me.data('votes')) || 0
+						, b = parseFloat($you.data('votes')) || 0
+						, sum = a + b
+						, meSize = 10.0 + (10.0 * Math.min( (a*2) / (b + sum), 1))
+						, youSize = 10.0 + (10.0 * Math.min( (b*2) / (a + sum), 1))
+
+					if (sum === 0) {
+						meSize = 15;
+						youSize = 15;
+					}
+
+					console.log(meSize);
+					console.log(youSize);
+
+					$me.find('span.tag').css({'font-size': meSize + 'px'});
+					$you.find('span.tag').css({'font-size': youSize + 'px'});
+
+				});
+			}
+			setVoteEffect();
+
+			$('.voter').click(function () {
+				var $this = $(this)
+					, me = $this.hasClass('me')
+					, id = $this.data('id')
+					, url = '/vote/' + id + '/' + (me ? '0' : '1')
+				if ($this.hasClass('clicked'))
+					return;
+				$this.addClass('clicked');
+				$.ajax({
+					type: 'POST',
+					url: url,
+					data: {},
+					success: function (data) {
+					}
+				});
+				$(this).data('votes', $(this).data('votes') + 1);
+				setVoteEffect();
+			});
+
 			$('#submit-dialog').click(function () {
 				var $link = $(this)
 					, form = $link.parent('form')
