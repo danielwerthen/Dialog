@@ -7,15 +7,5 @@ block body
 		h1 Latest
 		hr
 		each dialog in dialogs
-			.dialog
-				h2.title= dialog.title
-				h3.author= dialog.author
-				.convo
-					- var c = 0
-					each retort in dialog.retorts
-						- var retorter = dialog.retorters[c]
-						.retort(class=(retorter === 0 ? 'me' : 'you'))
-							span.tag= dialog.characters[retorter].name
-							p= retort
-						- c++
+			!=partial('_dialog', { dialog: dialog })
 

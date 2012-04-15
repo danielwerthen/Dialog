@@ -23,7 +23,13 @@ app.get('/', function (req, res) {
 	.run(function (err, list) {
 		res.render('home', { dialogs: list });
 	});
+});
 
+app.get('/byId/:id', function (req, res) {
+	dialogs.Dialog.findOne({ _id: req.params.id }, function (err, doc) {
+		if (err) return res.render('error', { error: err });
+		return res.render('byId', { dialog: doc });
+	});
 });
 
 app.get('/new', function (req, res) {

@@ -1,0 +1,22 @@
+- var full = full || false
+.dialog
+	.votes
+		.char-one
+			span.tag= dialog.characters[0].name
+		.char-two
+			span.tag= dialog.characters[1].name
+	a(href='/byId/' + dialog._id)
+		h2.title= dialog.title
+	h3.author= dialog.author
+	.convo
+		- var c = 0
+		each retort in dialog.retorts
+			- if (c < 6 || full == true)
+				- var retorter = dialog.retorters[c]
+				.retort(class=(retorter === 0 ? 'me' : 'you'))
+					span.tag= dialog.characters[retorter].name
+					p= retort
+				- c++
+		- if (dialog.retorts.length > 6 && full !== true)
+			a.action-link(href='/byId/' + dialog._id) Read more
+		hr

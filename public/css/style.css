@@ -132,17 +132,27 @@ html, body, div, p, a, h1, h2, h3, h4, textarea, input {
 }
 
 
-.retort span.tag:before, .action-link:before {
+span.tag:before, .action-link:before {
 	content: '{'
 }
 
-.retort span.tag:after, .action-link:after {
+span.tag:after, .action-link:after {
 	content: '}'
 }
 
-.retort span.tag {
+span.tag {
 	margin-right: 8px;
 	font-weight: 600;
+}
+
+.char-one span.tag {
+	font-size: 20px;
+	float: right;
+}
+
+.char-two span.tag {
+	font-size: 16px;
+	float: right;
 }
 
 .dialog {
@@ -231,4 +241,9 @@ input.character-io {
 
 .sharing-is-caring form {
 	margin-left: 13px;
+}
+
+.votes {
+	float: right;
+	margin-top: 5px;
 }

@@ -1,0 +1,7 @@
+extends layout
+block header
+	.menu
+		a.action-link(href='/') Back
+block body
+	.content.well.static
+		!=partial('_dialog', { dialog: dialog, full: true })
