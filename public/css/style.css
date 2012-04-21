@@ -274,3 +274,18 @@ input.character-io {
 	margin-top: 5px;
 }
 
+form .validation.failed input {
+	background: #C33;
+}
+
+form .validation .validation-message {
+	visibility: hidden;
+	display: none;
+	color: #999;
+}
+
+form .validation.failed .validation-message {
+	visibility: visible;
+	display: block;
+}
+

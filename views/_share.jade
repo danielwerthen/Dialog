@@ -5,6 +5,10 @@
 			a.action-link.overlay-action(href='#', data-close='#sharing-is-caring') X
 	hr
 	form(method='post', action='/dialog')
-		input(type='text', placeholder='Title of Dialog', name='title')
-		input(type='text', placeholder='Pseudonym', name='author')
+		.validation#title
+			input(type='text', placeholder='Title of Dialog', name='title')
+			p.validation-message Your dialog need a title.
+		.validation#author
+			input(type='text', placeholder='Pseudonym', name='author')
+			p.validation-message Your dialog need a pseudonym, but you may chose whatever you would like.
 		a.action-link#submit-dialog(href='#') Submit

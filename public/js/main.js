@@ -71,9 +71,6 @@ require(
 						youSize = 15;
 					}
 
-					console.log(meSize);
-					console.log(youSize);
-
 					$me.find('span.tag').css({'font-size': meSize + 'px'});
 					$you.find('span.tag').css({'font-size': youSize + 'px'});
 
@@ -118,8 +115,27 @@ require(
 					data.append(makeHidden('retorters[' + i + ']', (me ? '0' : '1')));
 					data.append(makeHidden('retorts[' + i + ']', retort.find('p').html()));
 				});
-				form.submit();
+				//form.submit();
+				$.post(form.attr('action'), form.serialize(), function (data) {
+					form.find('.validation.failed').removeClass('failed');
+					if (data.error) {
+						for (var err in data.error.errors) {
+							var field = form.find('#' + err)
+							field.addClass('failed');
+							field.on('keydown.removeValidation', function () {
+								$(this).removeClass('failed');
+								$(this).off('keydown.removeValidation');
+							});
+						}
+					}
+					else {
+						window.location = '/';
+					}
+				});
 			});
+
+			function displayErrors(form, errors) {
+			}
 
 			function enter(textarea, _flip) {
 				var _me = meInput.val(),

@@ -55,8 +55,9 @@ app.get('/new', function (req, res) {
 
 app.post('/dialog', function (req, res) {
 	dialogs.put(req.body, function (err, result) {
-		if (err || !result) return res.render('error', { error: err });
-		return res.redirect('home');
+		res.writeHead(200, {'Content-Type': 'application/json'});
+		if (err || !result) return res.end(JSON.stringify({ error: err }));
+		return res.end(JSON.stringify({ success: true }));
 	});
 });
 
