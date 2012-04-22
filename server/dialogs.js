@@ -36,6 +36,10 @@ function create(dialog, cb) {
 	d.author = dialog.author;
 	d.characters.push({ name: dialog.character0 });
 	d.characters.push({ name: dialog.character1 });
+	if (!dialog.retorts || !dialog.retorters
+			|| dialog.retorts.length == 0
+			|| dialog.retorts.length == 0)
+		return cb("You need to write something before sharing");
 	d.retorters = dialog.retorters;
 	d.retorts = dialog.retorts;
 	d.validate(function (err) {

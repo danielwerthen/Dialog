@@ -1,7 +1,7 @@
 var express = require('express')
 	, app = express.createServer()
 	, port = process.env.PORT || 3001
-	, db = require('./db').connect()
+	, db = require('./db').connect(process.env.DB || 'X')
 	, dialogs = require('./server/dialogs')
 	, jadeHelp = require('./lib/jadeHelp')
 	, barrier = require('./lib/barrier')
