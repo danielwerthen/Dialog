@@ -4,4 +4,7 @@ block header
 		a.action-link(href='/') Back
 block body
 	.content.well.static
-		!=partial('_dialog', { dialog: dialog, full: true })
+		.inline-block
+			!=partial('_dialog', { dialog: dialog, full: true })
+		.inline-block
+			!=partial('_reactions', { dialog: dialog, amount: 200 })

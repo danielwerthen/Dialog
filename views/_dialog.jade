@@ -1,10 +1,5 @@
 - var full = full || false
 .dialog
-	.votes
-		.voter.me(data-id=dialog._id, data-votes=dialog.characters[0].upVotes, class=(dialog.characters[0].hasVoted == true ? 'clicked' : ''))
-			span.tag= dialog.characters[0].name
-		.voter.you(data-id=dialog._id, data-votes=dialog.characters[1].upVotes, class=(dialog.characters[1].hasVoted == true ? 'clicked' : ''))
-			span.tag= dialog.characters[1].name
 	a(href='/byId/' + dialog._id)
 		h2.title= dialog.title
 	h3.author= dialog.author
@@ -19,4 +14,3 @@
 				- c++
 		- if (dialog.retorts.length > 6 && full !== true)
 			a.action-link(href='/byId/' + dialog._id) Read more
-		hr

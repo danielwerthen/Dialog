@@ -55,47 +55,58 @@ require(
 				return $('<input type="hidden" value="' + val + '" + name="' + name + '" />');
 			}
 
-			function setVoteEffect() {
-				$('.votes').each(function (i, element) {
-					var $self = $(element)
-						, $me = $self.find('.voter.me')
-						, $you = $self.find('.voter.you')
-						, a = parseFloat($me.data('votes')) || 0
-						, b = parseFloat($you.data('votes')) || 0
-						, sum = a + b
-						, meSize = 10.0 + (10.0 * Math.min( (a*2) / (b + sum), 1))
-						, youSize = 10.0 + (10.0 * Math.min( (b*2) / (a + sum), 1))
+			var reactionInputs = $('input.reaction');
+			reactionInputs.keydown(function (e) {
+				if (e.keyCode === 32)
+					return false;
+			});
 
-					if (sum === 0) {
-						meSize = 15;
-						youSize = 15;
+			reactionInputs.change(function (elem) {
+				var field = $(this)
+					, reaction = field.val()
+					, reactions = field.parent('.reactions')
+					, id = reactions.data('id')
+					, unique = true
+				if (reaction.length > 0)
+					reaction = reaction.substr(0,1).toUpperCase() + reaction.substr(1);
+				reactions.find('.reaction').each(function (i, ele) {
+					var self = $(ele);
+					if (self.html().toLowerCase() === reaction.toLowerCase()) {
+						unique = false;
+						if (!self.hasClass('clicked')) {
+							self.attr('data-amount', self.attr('data-amount') - (-1));
+							self.addClass('clicked');
+							vote(reaction, id, self);
+						}
 					}
-
-					$me.find('span.tag').css({'font-size': meSize + 'px'});
-					$you.find('span.tag').css({'font-size': youSize + 'px'});
-
 				});
-			}
-			setVoteEffect();
+				if (unique) {
+					field.before($('<div class="reaction clicked" data-amount=1>' + reaction + '</div>'));
+					vote(reaction, id, field);
+				}
+				field.val('');
+			});
 
-			$('.voter').click(function () {
-				var $this = $(this)
-					, me = $this.hasClass('me')
-					, id = $this.data('id')
-					, url = '/vote/' + id + '/' + (me ? '0' : '1')
-				if ($this.hasClass('clicked'))
+			$('.reaction').click(function () {
+				var self = $(this)
+				if (self.hasClass('clicked'))
 					return;
-				$this.addClass('clicked');
+				vote(self.html(), self.parent('.reactions').data('id'), self);
+				self.addClass('clicked');
+				self.attr('data-amount', self.attr('data-amount') - (-1));
+			});
+
+			function vote(reaction, id, element) {
+				if (!reaction || !id)
+					return;
+				var h = element.parents('.reactions-block').children('.reactions-header')
+				h.attr('data-amount', h.attr('data-amount') - (-1));
 				$.ajax({
 					type: 'POST',
-					url: url,
-					data: {},
-					success: function (data) {
-					}
+					url: '/vote/' + id,
+					data: { reaction: reaction }
 				});
-				$(this).data('votes', $(this).data('votes') + 1);
-				setVoteEffect();
-			});
+			}
 
 			$('#submit-dialog').click(function () {
 				var $link = $(this)

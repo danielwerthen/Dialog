@@ -1,0 +1,6 @@
+.reactions-block
+	h4.reactions-header(data-amount=_.reduce(dialog._reactions, function(m, r) { return m + r.count; }, 0)) Reactions
+	.reactions(data-id=dialog._id)
+		each r in _.first(dialog._reactions, amount)
+			.reaction(data-amount=r.count, class=(r.clicked ? 'clicked' : ''))= r.reaction
+		input.reaction(tabindex=1, placeholder='In one word', maxlength=20)

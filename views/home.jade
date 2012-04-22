@@ -7,5 +7,9 @@ block body
 		h1 Latest
 		hr
 		each dialog in dialogs
-			!=partial('_dialog', { dialog: dialog })
+			.row
+				.span5
+					!=partial('_dialog', { dialog: dialog })
+				.span5
+					!=partial('_reactions', { dialog: dialog, amount: 10 })
 

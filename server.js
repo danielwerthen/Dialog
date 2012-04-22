@@ -1,4 +1,5 @@
 var express = require('express')
+	, _ = require('underscore')
 	, app = express.createServer()
 	, port = process.env.PORT || 3001
 	, db = require('./db').connect(process.env.DB || 'X')
@@ -18,12 +19,24 @@ app.configure(function () {
 	jadeHelp.set('views', __dirname + '/views');
 });
 
-function hasVoted(ip, dialog, complete) {
-	pageviews.hasVoted(ip, dialog._id, function (err, chars) {
-		for (var c in chars) {
-			dialog.characters[chars[c].charId].hasVoted = true;
-		}
-		complete();
+app.helpers({
+	_: _
+});
+
+function getReactions(ip, dialog, complete) {
+	pageviews.getReactions(dialog._id, function (err, reactions) {
+		if (err) return complete(err);
+		grouped = _.chain(reactions)
+			.groupBy(function (r) { return r.reaction; })
+			.map(function (g) {
+				return { reaction: g[0].reaction, count: g.length, clicked: _.any(g, function (r) {
+					return r.ip === ip;
+				}) }; 
+			})
+			.sortBy(function (r) { return -r.count; })
+			.value();
+		dialog._reactions = grouped;
+		complete(null, dialog);
 	});
 }
 
@@ -42,7 +55,7 @@ app.get('/', function (req, res) {
 				, con = req.connection ? req.connection.address() : undefined
 				, address = con ? con.address : ""
 
-			hasVoted(address, list[i], complete);
+			getReactions(address, list[i], complete);
 		}
 	});
 });
@@ -50,7 +63,12 @@ app.get('/', function (req, res) {
 app.get('/byId/:id', function (req, res) {
 	dialogs.Dialog.findOne({ _id: req.params.id }, function (err, doc) {
 		if (err) return res.render('error', { error: err });
-		return res.render('byId', { dialog: doc });
+		var con = req.connection ? req.connection.address() : undefined
+			, address = con ? con.address : "";
+		getReactions(address, doc, function (err, doc) {
+			if (err) return res.render('error', { error: err });
+			return res.render('byId', { dialog: doc });
+		});
 	});
 });
 
@@ -66,16 +84,12 @@ app.post('/dialog', function (req, res) {
 	});
 });
 
-app.post('/vote/:id/:charId', function (req, res) {
-	pageviews.registerVote(req.connection.address().address, req.params.id, req.params.charId, function (err) {
+app.post('/vote/:id', function (req, res) {
+	pageviews.registerReaction(req.connection.address().address, req.params.id, req.body.reaction, function (err) {
 		if (err) {
 			res.writeHeader(200, { 'Content-Type': 'application/JSON' });
 			return res.end(JSON.stringify({ result: false }));
 		}
-		dialogs.upVote(req.params.id, req.params.charId, function (err) {
-			res.writeHeader(200, { 'Content-Type': 'application/JSON' });
-			res.end(JSON.stringify({ result: !err }));
-		});
 	});
 });
 

@@ -2,33 +2,36 @@ var mongoose = require('mongoose')
 	, Schema = mongoose.Schema
 	, db = mongoose.connection
 
-var VoteEntrySchema = new Schema({
+var ReactionSchema = new Schema({
 	ip 					: { type: String }
 	, dialogId 	: { type: String }
-	, charId 		: { type: Number }
+	, reaction 	: { type: String, required: true }
 });
 
-VoteEntrySchema.index({ ip: 1, dialogId: 1, charId: 1 }, { unique: true });
+ReactionSchema.path('reaction').validate(function (v) {
+	return v.length < 20;
+});
 
-var VoteEntry = db.model('VoteEntry', VoteEntrySchema);
+ReactionSchema.index({ ip: 1, dialogId: 1, reaction: 1 }, { unique: true });
 
-module.exports.VoteEntry = VoteEntry;
+var Reaction = db.model('Reaction', ReactionSchema);
 
-module.exports.registerVote = registerVote;
-function registerVote(ip, dialogId, charId, cb) {
-	var ve = new VoteEntry({
+module.exports.Reaction = Reaction;
+
+module.exports.registerReaction = registerReaction;
+function registerReaction(ip, dialogId, reaction, cb) {
+	var ve = new Reaction({
 		ip: ip
 		, dialogId: dialogId
-		, charId: charId
+		, reaction: reaction
 	});
 	ve.save(cb);
 }
 
-module.exports.hasVoted = hasVoted;
-function hasVoted(ip, dialogId, cb) {
-	VoteEntry.find()
-		.where('ip', ip)
+module.exports.getReactions = getReactions;
+function getReactions(dialogId, cb) {
+	Reaction.find()
 		.where('dialogId', dialogId)
-		.select('charId')
+		.select('ip', 'reaction')
 		.run(cb);
 }

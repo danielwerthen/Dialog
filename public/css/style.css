@@ -73,6 +73,11 @@ a:hover {
 	color: #999;
 }
 
+.action-link.small {
+	font-size: 0.9rem;
+	line-height: 1rem;
+}
+
 .action-link:hover {
 	color: #999;
 }
@@ -141,6 +146,10 @@ html, body, div, p, a, h1, h2, h3, h4, textarea, input {
 	left: 15px;
 }
 
+.voter i {
+	float: right;
+}
+
 span.tag:before, .action-link:before {
 	content: '{'
 }
@@ -193,6 +202,35 @@ h3.char {
 
 h3.author:before {
 	content: 'By: ';
+}
+
+input.reaction {
+	display: block;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	border:none;
+	background-color: none;
+	background: none;
+	color: #333;
+}
+
+.reactions-block {
+	margin-top: 10px;
+	margin-left: 16px;
+}
+
+div.reaction:hover:not(.clicked) {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+div.reaction:after {
+	content: " +" attr(data-amount);
+}
+
+.reactions-header:before {
+	content: attr(data-amount) " ";
 }
 
 input.character-io {
@@ -288,3 +326,7 @@ form .validation.failed .validation-message {
 	display: block;
 }
 
+.inline-block {
+	display: inline-block;
+	vertical-align: top;
+}
