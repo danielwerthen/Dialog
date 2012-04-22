@@ -36,8 +36,11 @@ app.get('/', function (req, res) {
 			res.render('home', { dialogs: list });
 		});
 		for (var i in list) {
-			var self = i;
-			hasVoted(req.connection.address().address, list[i], complete);
+			var self = i
+				, con = req.connection ? req.connection.address() : undefined
+				, address = con ? con.address : ""
+
+			hasVoted(address, list[i], complete);
 		}
 	});
 });
