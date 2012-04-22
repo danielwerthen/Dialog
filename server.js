@@ -1,7 +1,7 @@
 var express = require('express')
 	, app = express.createServer()
 	, port = process.env.PORT || 3001
-	, db = require('./db').connect('X')
+	, db = require('./db').connect(process.env.DB || 'X')
 	, dialogs = require('./server/dialogs')
 	, jadeHelp = require('./lib/jadeHelp')
 	, barrier = require('./lib/barrier')
@@ -26,10 +26,6 @@ function hasVoted(ip, dialog, complete) {
 		complete();
 	});
 }
-
-app.get('/test', function (req, res) {
-	res.end(JSON.stringify(process.env));
-});
 
 app.get('/', function (req, res) {
 	dialogs.Dialog.find()
