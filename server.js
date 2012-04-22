@@ -35,6 +35,8 @@ app.get('/', function (req, res) {
 		var complete = new barrier(list.length, function () {
 			res.render('home', { dialogs: list });
 		});
+		if (list.length == 0)
+			complete();
 		for (var i in list) {
 			var self = i
 				, con = req.connection ? req.connection.address() : undefined

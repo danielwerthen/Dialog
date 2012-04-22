@@ -7,7 +7,6 @@ module.exports.connect = function (dbString) {
 		dbString = 'mongodb://vows:Pass09Word@flame.mongohq.com:27041/Dialog_test';
 	else if (dbString === 'X')
 		dbString = 'mongodb://admin:Pass09Word@flame.mongohq.com:27041/Dialog_test';
-	console.log(dbString);
 	mongoose.connect(dbString, options);
 	return mongoose.connection;
 };
