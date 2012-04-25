@@ -16,6 +16,10 @@ require(
 					$(close).removeClass('opened')
 			});
 
+			$('.overlay-close').click(function () {
+				$(this).parents('.overlay').removeClass('opened');
+			});
+
 			var state = $('.state .inner')
 				, me = state.hasClass('me')
 				, convo = $('.convo')

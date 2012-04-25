@@ -9,8 +9,12 @@ html(lang="en")
 	body
 		.container
 			.header
-				a.action-link(href='/') Dialog.io
-				block header
+				.place.left
+					a.action-link(href='/') Dialog.io
+				.place.center
+					block center-header
+				.place.right
+					block right-header
 			block body
 				.content.well
 			block footer

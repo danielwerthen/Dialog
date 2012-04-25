@@ -1,9 +1,8 @@
-.sharing-is-caring
-	.header
-		h1 Share
-		.menu
-			a.action-link.overlay-action(href='#', data-close='#sharing-is-caring') X
-	hr
+extends templates/window
+
+block title
+	h1 Share
+block body
 	form(method='post', action='/dialog')
 		.validation#title
 			input(type='text', placeholder='Title of Dialog', name='title')

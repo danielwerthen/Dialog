@@ -2,9 +2,8 @@ extends layout
 block overlay
 	.overlay#sharing-is-caring
 		!= partial('_share')
-block header
-	.menu
-		a.overlay-action.action-link(href='#sharing-is-caring', data-open='#sharing-is-caring') Share
+block right-header
+	a.overlay-action.action-link(href='#sharing-is-caring', data-open='#sharing-is-caring') Share
 block footer
 	.footer
 		!= partial('_input')

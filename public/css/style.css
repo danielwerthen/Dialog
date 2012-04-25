@@ -16,6 +16,7 @@ form input {
 .container {
 	position: relative;
 	height: 100%;
+	padding: 0px;
 }
 
 hr {
@@ -251,18 +252,55 @@ input.character-io {
 	color: #333;
 }
 
+.header {
+	height: 40px;
+}
+
+.place {
+	display: inline-block;
+	width: 33%;
+}
+
+.place a {
+	z-index: 1000;
+}
+
+.place.right {
+	text-align: right;
+	margin-right: 0px;
+	margin-left: auto;
+}
+
+.place.center {
+	left: 35px;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.place.left {
+	text-align: left;
+	margin-right: auto;
+	margin-left: 0px;
+}
+
 .header .menu {
 	float: right;
 }
 
 .overlay {
-	position: absolute;
+	position: fixed;
 	top: 0px;
 	bottom: 0px;
 	right: 0px;
 	left: 0px;
 	background-color: rgba(23,23,23,0.5);
 	visibility: hidden;
+	color: #999;
+}
+
+.overlay h2, h1 {
+	color: inherit;
 }
 
 .overlay.opened {
@@ -273,7 +311,7 @@ input.character-io {
 	margin: 0px 0 18px;
 }
 
-.overlay .sharing-is-caring {
+.overlay .window {
 	z-index: 1000;
 	-moz-opacity: 1;
 	-khtml-opacity: 1;
@@ -281,9 +319,7 @@ input.character-io {
 	position: relative;
 	margin-right: auto;
 	margin-left: auto;
-	top: 50px;
-	width: 80%;
-	max-width: 300px;
+	bottom: 20px;
 	padding:10px;
 	background:#333;
 	border:2px solid whitesmoke;
@@ -295,9 +331,17 @@ input.character-io {
 	-webkit-box-shadow:  -5px 8px 10px 1px #333;
 	-moz-box-shadow:  -5px 8px 10px 1px #333;
 	box-shadow:  -5px 8px 10px 1px #333;
+	max-height: 80%;
+	overflow-y: auto;
 }
 
-.sharing-is-caring .header h1 {
+.window.small {
+	top: 50px;
+	width: 80%;
+	max-width: 300px;
+}
+
+.window .header h1 {
 	line-height: 2.5rem;
 	display: inline;
 	font-weight: 200;
@@ -329,4 +373,9 @@ form .validation.failed .validation-message {
 .inline-block {
 	display: inline-block;
 	vertical-align: top;
+}
+
+.prettify p:first-letter {
+	font-weight: 600;
+	font-size: 1.5em;
 }
