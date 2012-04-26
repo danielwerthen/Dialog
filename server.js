@@ -42,7 +42,7 @@ function getReactions(ip, dialog, complete) {
 
 app.get('/', function (req, res) {
 	dialogs.Dialog.find()
-	.sort('date', -1)
+	.sort('totalReactions', -1)
 	.limit(10)
 	.run(function (err, list) {
 		var complete = new barrier(list.length, function () {

@@ -18,6 +18,8 @@ var DialogSchema = new Schema({
 	, retorts 		: [ String ]
 	, date 				: { type: Date, default: Date.now }
 	, active 			: { type: Boolean, default: false }
+	, totalReactions : { type: Number }
+	, topReactions : [ String ]
 });
 
 var Dialog = db.model('Dialog', DialogSchema);

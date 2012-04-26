@@ -151,11 +151,15 @@ html, body, div, p, a, h1, h2, h3, h4, textarea, input {
 	float: right;
 }
 
-span.tag:before, .action-link:before {
+span.tag:after {
+	content: ':';
+}
+
+.action-link:before {
 	content: '{'
 }
 
-span.tag:after, .action-link:after {
+.action-link:after {
 	content: '}'
 }
 
