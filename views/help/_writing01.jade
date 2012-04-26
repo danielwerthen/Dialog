@@ -1,0 +1,14 @@
+extends ../templates/window
+
+block title
+	h1 Writing dialogs
+block body
+	.prettify
+		p I have tried to make it as easy as possible to crank out dialogs with little thought.
+		p There is only a couple of controls.
+		ul
+			li Write in the box down below.
+			li Press {Enter} to save the "retort". Which will clear the box and switch context to the next character
+			li Hold {Shift} to preserve the current character in context
+			li Press {Tab} to switch character without saving the "retort".
+		p Oh, and you can change the name of the characters by editing the two textboxes in the header.
