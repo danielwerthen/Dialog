@@ -1,0 +1,21 @@
+extends layout
+block overlay
+	.overlay#sharing-is-caring
+		!= partial('_share')
+	.overlay#help
+		!= partial('help/_writing01')
+block center-header
+	a.overlay-action.action-link(href='#help', data-open='#help') ?
+block right-header
+	a.overlay-action.action-link(href='#sharing-is-caring', data-open='#sharing-is-caring') Share
+block footer
+	.footer
+		!= partial('_input')
+block body
+	.content.well
+		h1 
+			input.character-io.me(tabindex=1, type='text', value='Me')
+			= ' & '
+			input.character-io.you(tabindex=2, type='text', value='You')
+		hr
+		.convo 

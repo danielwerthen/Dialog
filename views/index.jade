@@ -1,21 +1,19 @@
 extends layout
-block overlay
-	.overlay#sharing-is-caring
-		!= partial('_share')
-	.overlay#help
-		!= partial('help/_writing01')
 block center-header
 	a.overlay-action.action-link(href='#help', data-open='#help') ?
+block overlay
+	.overlay#help
+		!= partial('help/_index01')
 block right-header
-	a.overlay-action.action-link(href='#sharing-is-caring', data-open='#sharing-is-caring') Share
-block footer
-	.footer
-		!= partial('_input')
+	a.action-link(href='/write') Write
 block body
-	.content.well
-		h1 
-			input.character-io.me(tabindex=1, type='text', value='Me')
-			= ' & '
-			input.character-io.you(tabindex=2, type='text', value='You')
+	.content.well.static
+		h1 Top
 		hr
-		.convo 
+		each dialog in dialogs
+			.row
+				.span5
+					!=partial('_dialog', { dialog: dialog })
+				.span5
+					!=partial('_reactions', { dialog: dialog, amount: 10 })
+

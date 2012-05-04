@@ -1,7 +1,7 @@
 var express = require('express')
 	, _ = require('underscore')
 	, app = express.createServer()
-	, port = process.env.PORT || 3001
+	, port = process.env.PORT || 3000
 	, db = require('./db').connect(process.env.DB || 'X')
 	, dialogs = require('./server/dialogs')
 	, jadeHelp = require('./lib/jadeHelp')
@@ -9,6 +9,7 @@ var express = require('express')
 	, pageviews = require('./server/pageviews')
 
 app.configure(function () {
+	app.use(express.favicon());
 	app.use(express.static(__dirname + '/public'));
 	app.use(express.logger({ format: ':method :url' }));
 	app.use(express.bodyParser());
@@ -46,7 +47,7 @@ app.get('/', function (req, res) {
 	.limit(10)
 	.run(function (err, list) {
 		var complete = new barrier(list.length, function () {
-			res.render('home', { dialogs: list });
+			res.render('index', { dialogs: list });
 		});
 		if (list.length == 0)
 			complete();
@@ -72,8 +73,8 @@ app.get('/byId/:id', function (req, res) {
 	});
 });
 
-app.get('/new', function (req, res) {
-	return res.render('index');
+app.get('/write', function (req, res) {
+	return res.render('write');
 });
 
 app.post('/dialog', function (req, res) {

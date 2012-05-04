@@ -2,6 +2,7 @@ require(
 	[ 'require'
 	, 'jquery'
 	, '/js/autoGrowInput.js'
+	, '/js/autofit.js'
 	, '/js/bootstrap.min.js' ]
 	, function (require, $) {
 		$(function () {
@@ -45,15 +46,6 @@ require(
 				flip();
 				return false;
 			});
-
-			//Attach autofit
-			$('.autofit')
-				.change(autofit)
-				.keydown(autofit)
-				.keyup(autofit)
-				.each(function (i, elem) {
-					autofit.apply(elem, null);
-				});
 
 			function makeHidden(name, val) {
 				return $('<input type="hidden" value="' + val + '" + name="' + name + '" />');
@@ -204,13 +196,5 @@ require(
 			});
 
 		});
-
-		function autofit() {
-			var text = $(this).val().replace(/\n/g, '<br/>');
-			var copy = $(this).siblings('.autofit-copy');
-			if (copy.length > 0)
-				copy.html(text);
-		}
-
 	}
 );

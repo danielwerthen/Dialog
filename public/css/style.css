@@ -51,6 +51,7 @@ a:hover {
 }
 
 .content.static {
+	min-height: 400px;
 	position: relative;
 	overflow-y: visible;
 	top: 0px;
@@ -116,21 +117,20 @@ html, body, div, p, a, h1, h2, h3, h4, textarea, input {
 
 .retort {
 	display: block;
-	max-width: 400px;
 	margin-bottom: 5px;
+	max-width: 400px;
 }
 
 .retort p {
 	display: inline;
 }
 
-.retort.me {
-	margin-left: 0px;
+.retort.you {
+	margin-left: 20px;
 }
 
-.retort.you {
-	margin-right: 0px;
-	margin-left: 20px;
+.retort.me {
+	margin-left: 0px;
 }
 
 
@@ -156,11 +156,11 @@ span.tag:after {
 }
 
 .action-link:before {
-	content: '{'
+	content: '{';
 }
 
 .action-link:after {
-	content: '}'
+	content: '}';
 }
 
 span.tag {
@@ -181,11 +181,11 @@ span.tag {
 }
 
 .voter:hover span.tag:before {
-	content: '{+1 '
+	content: '{+1 ';
 }
 
 .voter.clicked span.tag:before {
-	content: '{+1 '
+	content: '{+1 ';
 }
 
 .voter {
@@ -387,3 +387,15 @@ form .validation.failed .validation-message {
 	font-weight: 600;
 	font-size: 1.5em;
 }
+
+.autofit {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	overflow: hidden;
+	height: auto;
+	overflow: hidden;
+	resize: none;
+}
+
