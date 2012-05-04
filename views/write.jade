@@ -14,8 +14,8 @@ block footer
 block body
 	.content.well
 		h1 
-			input.character-io.me(tabindex=1, type='text', value='Me')
+			.editable.character-io.me(tabindex=1, contentEditable='true') Me
 			= ' & '
-			input.character-io.you(tabindex=2, type='text', value='You')
+			.editable.character-io.you(tabindex=2, contentEditable='true') You
 		hr
 		.convo 

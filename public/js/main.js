@@ -1,8 +1,8 @@
 require(
 	[ 'require'
 	, 'jquery'
-	, '/js/autoGrowInput.js'
 	, '/js/autofit.js'
+	, '/js/editableDiv.js'
 	, '/js/bootstrap.min.js' ]
 	, function (require, $) {
 		$(function () {
@@ -26,9 +26,14 @@ require(
 				, convo = $('.convo')
 				, shift = false
 				, content = $('.content')
-				, meInput = $('input.character-io.me')
-				, youInput = $('input.character-io.you')
-				, charIO = $('input.character-io')
+				, meInput = $('.character-io.me')
+				, youInput = $('.character-io.you')
+				, read = function (e) { 
+						if (e.is('input')) 
+							return e.val(); 
+						else return e.html(); 
+					}	
+				, charIO = $('.character-io')
 
 			$('.retorter')
 				.keydown(function (e) {
@@ -114,8 +119,8 @@ require(
 					data = form.find('#data');
 					data.empty();
 				}
-				data.append(makeHidden('character0', meInput.val()));
-				data.append(makeHidden('character1', youInput.val()));
+				data.append(makeHidden('character0', read(meInput)));
+				data.append(makeHidden('character1', read(youInput)));
 				$('.convo .retort').each(function (i, element) {
 					var retort = $(element)
 						, me = retort.hasClass('me');
@@ -145,8 +150,8 @@ require(
 			}
 
 			function enter(textarea, _flip) {
-				var _me = meInput.val(),
-						_you = youInput.val(),
+				var _me = read(meInput)
+						_you = read(youInput),
 						text = textarea.val();
 				if (text === '')
 					return;
@@ -158,16 +163,16 @@ require(
 			}
 
 			function syncChars() {
-				var me = meInput.val(),
-						you = youInput.val();
+				var me = read(meInput)
+					, you = read(youInput);
 				$('.retort.me span.tag').html(me);
 				$('.retort.you span.tag').html(you);
 				setState();
 			}
 
 			function setState() {
-				var _me = meInput.val(),
-						_you = youInput.val();
+				var _me = read(meInput),
+						_you = read(youInput);
 				if (me) {
 					state.html(_me);
 				}
@@ -190,7 +195,6 @@ require(
 
 			}
 
-			charIO.autoGrowInput();
 			charIO.keyup(function () {
 				syncChars();
 			});
