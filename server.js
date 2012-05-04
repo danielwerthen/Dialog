@@ -7,6 +7,12 @@ var express = require('express')
 	, jadeHelp = require('./lib/jadeHelp')
 	, barrier = require('./lib/barrier')
 	, pageviews = require('./server/pageviews')
+	, worker = require('./worker')
+	, queues = require('./server/workerQueues')
+
+if (!process.env.divideWorkers) {
+	worker.start();
+}
 
 app.configure(function () {
 	app.use(express.favicon());
@@ -105,7 +111,12 @@ app.post('/vote/:id', function (req, res) {
 			res.writeHeader(200, { 'Content-Type': 'application/JSON' });
 			return res.end(JSON.stringify({ result: false }));
 		}
+		else {
+			res.writeHeader(200, { 'Content-Type': 'application/JSON' });
+			return res.end(JSON.stringify({ result: true }));
+		}
 	});
+	queues.addWorkItem(req.params.id);
 });
 
 db.on('open', function (err) {

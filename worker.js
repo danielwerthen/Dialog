@@ -28,9 +28,6 @@ function workReactionToDialog(cb) {
 			if (err || !dialog) { return cb(err); }
 			mapReactions(dialog, function (err, dialog) {
 				if (err || !dialog) { return cb(err); }
-				console.log(dialog.title);
-				console.log(dialog.totalReactions);
-				console.dir(dialog.topReactions);
 				dialog.save(function (err) {
 					if (err) { return cb(err); }
 					queues.ReactionToDialog.remove({ _id: workItem._id }, function (err) {
@@ -47,23 +44,32 @@ var delay = 1000 * 60;
 function doWork() {
 	workReactionToDialog(function (err, result) {
 		if (err) { console.dir(err); return setTimeout(doWork, delay); }
-		else if (!result) { console.dir('Queue is empty'); return setTimeout(doWork, delay); }
+		else if (!result) { return setTimeout(doWork, delay); }
 		else { doWork(); }
 	});
 }
-console.log('Initiating worker...');
-setTimeout(function () {
-	console.log('Commencing worker queue run-down');
-	doWork();
-}, 1000);
+function start() {
+	console.log('Initiating worker...');
+	setTimeout(function () {
+		console.log('Commencing worker queue run-down');
+		doWork();
+	}, 1000);
 
-queues.ReactionToDialog.count({}, function (err, c) {
-	if (err) { return console.dir(err); }
-	console.log(c + ' items in queue');
-	if (c === 0) {
-		addAllDialogs();
-	}
-});
+	queues.ReactionToDialog.count({}, function (err, c) {
+		if (err) { return console.dir(err); }
+		console.log(c + ' items in queue');
+		if (c === 0) {
+			addAllDialogs();
+		}
+	});
+}
+if (!module) {
+	start();
+}
+else {
+	module.exports.start = start;
+}
+
 function addAllDialogs() {
 	console.log('Adding all dialogs');
 	var stream = dialogs.Dialog.find().stream();
