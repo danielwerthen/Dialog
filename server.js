@@ -24,6 +24,12 @@ app.helpers({
 	_: _
 });
 
+app.dynamicHelpers({
+	req: function(req) {
+				 return req;
+			 }
+});
+
 function getReactions(ip, dialog, complete) {
 	pageviews.getReactions(dialog._id, function (err, reactions) {
 		if (err) return complete(err);
@@ -41,9 +47,9 @@ function getReactions(ip, dialog, complete) {
 	});
 }
 
-app.get('/', function (req, res) {
+function listDialogs(req, res, sorting) {
 	dialogs.Dialog.find()
-	.sort('totalReactions', -1)
+	.sort(sorting, -1)
 	.limit(10)
 	.run(function (err, list) {
 		var complete = new barrier(list.length, function () {
@@ -59,6 +65,14 @@ app.get('/', function (req, res) {
 			getReactions(address, list[i], complete);
 		}
 	});
+}
+
+app.get('/', function (req, res) {
+	listDialogs(req, res, 'totalReactions');
+});
+
+app.get('/new', function (req, res) {
+	listDialogs(req, res, 'date');
 });
 
 app.get('/byId/:id', function (req, res) {

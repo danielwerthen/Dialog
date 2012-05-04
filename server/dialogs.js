@@ -16,9 +16,9 @@ var DialogSchema = new Schema({
 	, characters 	: [CharacterSchema]
 	, retorters 	: [ Number ]
 	, retorts 		: [ String ]
-	, date 				: { type: Date, default: Date.now }
+	, date 				: { type: Date, default: Date.now, index: true }
 	, active 			: { type: Boolean, default: false }
-	, totalReactions : { type: Number }
+	, totalReactions : { type: Number, index: true }
 	, topReactions : [ String ]
 });
 

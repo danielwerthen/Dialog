@@ -1,10 +1,10 @@
 define(['jquery'], function ($) {
-	$.fn.editableDiv = function () {
+	$.fn.editable = function () {
 		return this.each(function () {
+		console.log('test');
 			var div = this;
 			$(this).keydown(function (e) {
 				if (e.keyCode == 13) return false;
-				console.log(e.keyCode);
 			});
 			$(this).focus(function () {
 				window.setTimeout(function () {
@@ -25,6 +25,6 @@ define(['jquery'], function ($) {
 		});
 	};
 	$(function () {
-		$('div.editable').editableDiv();
+		$('.editable').editable();
 	});
 });

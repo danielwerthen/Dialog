@@ -2,7 +2,7 @@ require(
 	[ 'require'
 	, 'jquery'
 	, '/js/autofit.js'
-	, '/js/editableDiv.js'
+	, '/js/editable.js'
 	, '/js/bootstrap.min.js' ]
 	, function (require, $) {
 		$(function () {
@@ -141,7 +141,7 @@ require(
 						}
 					}
 					else {
-						window.location = '/';
+						window.location = '/new';
 					}
 				});
 			});
@@ -155,7 +155,9 @@ require(
 						text = textarea.val();
 				if (text === '')
 					return;
-				convo.append($('<div class="' + (me ? 'me' : 'you') + ' retort"><span class="tag">' + (me ? _me : _you) + '</span>' + '<p>' + text + '</p>' + '</div>'));
+				var retort = $('<div class="' + (me ? 'me' : 'you') + ' retort"><span class="tag">' + (me ? _me : _you) + '</span>' + '<p class="editable" contentEditable="true">' + text + '</p>' + '</div>');
+				retort.children('.editable').editable();
+				convo.append(retort);
 				textarea.val('');
 				content.scrollTop(content.prop('scrollHeight'));
 				if (_flip)
@@ -171,14 +173,14 @@ require(
 			}
 
 			function setState() {
-				var _me = read(meInput),
-						_you = read(youInput);
+				var stateIs;
 				if (me) {
-					state.html(_me);
+					stateIs = read(meInput);
 				}
 				else {
-					state.html(_you);
+					stateIs = read(youInput);
 				}
+				state.html(stateIs);
 			}
 
 			function flip() {

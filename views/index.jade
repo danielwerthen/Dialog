@@ -8,8 +8,13 @@ block right-header
 	a.action-link(href='/write') Write
 block body
 	.content.well.static
-		h1 Top
-		hr
+		ul.nav.nav-tabs
+			li(class=(req.url === '/' ? 'active' : '')) 
+				a(href='/')
+					h1 Top
+			li(class=(req.url === '/new' ? 'active' : ''))
+				a(href='/new')
+					h1 New
 		each dialog in dialogs
 			.row
 				.span5

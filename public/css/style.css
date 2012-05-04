@@ -84,6 +84,11 @@ a:hover {
 	color: #999;
 }
 
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover {
+	background-color: whitesmoke;
+}
+
 textarea.retorter {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -242,9 +247,13 @@ div.reaction:after {
 	display: inline-block;
 }
 
-.character-io:focus {
+.editable:focus {
 	border: none;
 	outline: none;
+}
+
+.editable {
+	white-space: pre;
 }
 
 .header {
@@ -294,7 +303,7 @@ div.reaction:after {
 	color: #999;
 }
 
-.overlay h2, h1 {
+.overlay h2, .overlay h1 {
 	color: inherit;
 }
 
