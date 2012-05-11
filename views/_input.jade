@@ -1,5 +1,6 @@
+- var parent = parent || null;
 .input
 	textarea.retorter(tabindex=3, name='writing', placeholder='What do you think?')
 .state
-	a.inner.me.action-link.switch-char(href='#') Me
+	a.inner.me.action-link.switch-char(href='#')= (parent ? parent.characters[0].name : 'Me')
 

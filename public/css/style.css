@@ -214,6 +214,10 @@ h3.author:before {
 	content: 'By: ';
 }
 
+h3.parent:before {
+	content: 'Response to: ';
+}
+
 input.reaction {
 	display: block;
 	-moz-box-shadow: none;

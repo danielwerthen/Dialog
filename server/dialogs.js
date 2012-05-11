@@ -13,6 +13,7 @@ var Character = db.model('Character', CharacterSchema);
 var DialogSchema = new Schema({
 	title 				: { type: String, required: true }
 	, author 			: { type: String, required: true }
+	, parent 			: { type: Schema.ObjectId, ref: 'Dialog' }
 	, characters 	: [CharacterSchema]
 	, retorters 	: [ Number ]
 	, retorts 		: [ String ]
@@ -36,6 +37,8 @@ function create(dialog, cb) {
 	var d = new Dialog();
 	d.title = dialog.title;
 	d.author = dialog.author;
+	if (dialog.parentId)
+		d.parent = dialog.parentId;
 	d.characters.push({ name: dialog.character0 });
 	d.characters.push({ name: dialog.character1 });
 	if (!dialog.retorts || !dialog.retorters

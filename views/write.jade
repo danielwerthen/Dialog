@@ -1,4 +1,6 @@
 extends layout
+block preScript
+	- var parent = parent || null
 block overlay
 	.overlay#sharing-is-caring
 		!= partial('_share')
@@ -13,9 +15,12 @@ block footer
 		!= partial('_input')
 block body
 	.content.well
+		- if (parent !== null)
+			h2='In response to '
+				a.action-link(href='/byId/' + parent._id, target='_new')= parent.title
 		h1 
-			.editable.character-io.me(tabindex=1, contentEditable='true') Me
+			.editable.character-io.me(tabindex=1, contentEditable='true')= (parent ? parent.characters[0].name : 'Me')
 			= ' & '
-			.editable.character-io.you(tabindex=2, contentEditable='true') You
+			.editable.character-io.you(tabindex=2, contentEditable='true')= (parent ? parent.characters[1].name : 'You')
 		hr
 		.convo 

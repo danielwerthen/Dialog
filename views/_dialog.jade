@@ -2,6 +2,9 @@
 .dialog
 	a(href='/byId/' + dialog._id)
 		h2.title= dialog.title
+	if (dialog.parent)
+		a(href='/byId/' + dialog.parent._id)
+			h3.parent= dialog.parent.title
 	h3.author= dialog.author
 	.convo
 		- var c = 0
@@ -14,3 +17,5 @@
 				- c++
 		- if (dialog.retorts.length > 6 && full !== true)
 			a.action-link(href='/byId/' + dialog._id) Read more
+		- else
+			a.action-link(href='/write/' + dialog._id) Respond

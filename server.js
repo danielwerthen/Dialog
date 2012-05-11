@@ -82,7 +82,9 @@ app.get('/new', function (req, res) {
 });
 
 app.get('/byId/:id', function (req, res) {
-	dialogs.Dialog.findOne({ _id: req.params.id }, function (err, doc) {
+	dialogs.Dialog.findOne({ _id: req.params.id })
+	.populate('parent', ['title'])
+	.run(function (err, doc) {
 		if (err) return res.render('error', { error: err });
 		var con = req.connection ? req.connection.address() : undefined
 			, address = con ? con.address : "";
@@ -93,8 +95,16 @@ app.get('/byId/:id', function (req, res) {
 	});
 });
 
-app.get('/write', function (req, res) {
-	return res.render('write');
+app.get('/write/:id?', function (req, res) {
+	if (req.params.id) {
+		dialogs.Dialog.findOne({ _id: req.params.id }, function (err, doc) {
+			if (err) return res.render('error', { error: err });
+			return res.render('write', { parent: doc });
+		});
+	}
+	else {
+		return res.render('write');
+	}
 });
 
 app.post('/dialog', function (req, res) {

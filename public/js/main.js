@@ -169,6 +169,7 @@ require(
 					, you = read(youInput);
 				$('.retort.me span.tag').html(me);
 				$('.retort.you span.tag').html(you);
+				window.title = me + ' & ' + you;
 				setState();
 			}
 

@@ -3,11 +3,18 @@ extends templates/window
 block title
 	h1 Share
 block body
+	- var parent = parent || null
 	form(method='post', action='/dialog')
+		if (parent)
+			input(type='hidden', name='parentId', value=parent._id)
 		.validation#title
-			input(type='text', placeholder='Title of Dialog', name='title')
+			input(type='text', placeholder='Title of Dialog', name='title', value=(parent ? parent.title : ''))
 			p.validation-message Your dialog need a title.
 		.validation#author
 			input(type='text', placeholder='Pseudonym', name='author')
 			p.validation-message Your dialog need a pseudonym, but you may chose whatever you would like.
+		.validation#email
+			input(type='email', placeholder='Email - optional', name='email')
+			p.validation-message This appears to be an invalid email, we are very sorry if it isn't.
+			p Enter your email if you really like Dialog.io and want to be a part of the next phase!
 		a.action-link#submit-dialog(href='#') Submit
