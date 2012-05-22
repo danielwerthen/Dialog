@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 	, Schema = mongoose.Schema
 	, db = mongoose.connection
+	, users = require('./users')
 
 var CharacterSchema = new Schema({
 	name : { type: String, required: true }
@@ -14,6 +15,7 @@ var DialogSchema = new Schema({
 	title 				: { type: String, required: true }
 	, author 			: { type: String, required: true }
 	, parent 			: { type: Schema.ObjectId, ref: 'Dialog' }
+	, user 				: { type: Schema.ObjectId, ref: 'User' }
 	, characters 	: [CharacterSchema]
 	, retorters 	: [ Number ]
 	, retorts 		: [ String ]
@@ -47,13 +49,41 @@ function create(dialog, cb) {
 		return cb("You need to write something before sharing");
 	d.retorters = dialog.retorters;
 	d.retorts = dialog.retorts;
-	d.validate(function (err) {
-		if (err) return cb(err);
-		d.save(function (err) {
+	var finish = function () {
+		d.validate(function (err) {
 			if (err) return cb(err);
-			cb(null, d);
+			d.save(function (err) {
+				if (err) return cb(err);
+				cb(null, d);
+			});
 		});
-	});
+	}
+	if (dialog.email) {
+		users.find(dialog.email, function (err, user) {
+			if (err) { 
+				console.log('err'); 
+				return cb(err);
+			}
+			else if (!user) {
+				console.log('create user');
+				return users.create(dialog.email, function (err, user) {
+					if (err) { 
+						console.log('err creating user');
+						return cb(err); 
+					}
+					console.log('attaching user to dialog');
+					d.user = user._id;
+					return finish();
+				});
+			}
+			console.log('found user');
+			d.user = user._id;
+			return finish();
+		});
+	}
+	else {
+		finish();
+	}
 }
 
 function update(dialog, cb) {

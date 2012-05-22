@@ -1,7 +1,6 @@
 define(['jquery'], function ($) {
 	$.fn.editable = function () {
 		return this.each(function () {
-		console.log('test');
 			var div = this;
 			$(this).keydown(function (e) {
 				if (e.keyCode == 13) return false;

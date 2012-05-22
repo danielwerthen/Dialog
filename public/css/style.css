@@ -205,6 +205,12 @@ span.tag {
 	max-width: 400px;
 }
 
+@media (min-width: 500px) {
+	.dialog {
+		min-width: 280px;
+	}
+}
+
 h3.char {
 	position: relative;
 	display: inline;
@@ -256,7 +262,7 @@ div.reaction:after {
 	outline: none;
 }
 
-.editable {
+.editable.character-io {
 	white-space: pre;
 }
 

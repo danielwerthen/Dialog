@@ -57,6 +57,7 @@ function listDialogs(req, res, sorting) {
 	dialogs.Dialog.find()
 	.sort(sorting, -1)
 	.limit(10)
+	.populate('parent', ['title'])
 	.run(function (err, list) {
 		var complete = new barrier(list.length, function () {
 			res.render('index', { dialogs: list });
